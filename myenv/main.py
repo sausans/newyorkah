@@ -9,6 +9,11 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 def upload_to_drive(file, credentials_json):
+    # Save the uploaded file to a temporary location
+    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+        temp_file.write(file.getbuffer())
+        temp_file_path = temp_file.name
+    
     # Load the credentials
     credentials = Credentials.from_service_account_info(credentials_json, scopes=["https://www.googleapis.com/auth/drive.file"])
     
@@ -18,11 +23,11 @@ def upload_to_drive(file, credentials_json):
     # Define file metadata
     file_metadata = {
         'name': file.name,
-        'parents': ['1UAL3zc1qSqlaUdmzHDlUM-Q2WD6Z9yzw']  # Replace 'your_folder_id' with the ID of the folder where you want to upload the file
+        'parents': ['1UAL3zc1qSqlaUdmzHDlUM-Q2WD6Z9yzw']  # Your Google Drive folder ID
     }
     
     # Create the media file upload
-    media = MediaFileUpload(file, resumable=True)
+    media = MediaFileUpload(temp_file_path, resumable=True)
     
     # Upload the file
     uploaded_file = drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
@@ -32,7 +37,6 @@ def upload_to_drive(file, credentials_json):
     shareable_link = f"https://drive.google.com/uc?export=view&id={file_id}"
     
     return shareable_link
-
 
 # Check if running locally by trying to import toml and reading the local secrets file
 try:
@@ -219,5 +223,5 @@ elif choice == "Sell my stuffs please":
             
             # Append the data to the Google Sheet
             sheet_ecom = sheet.worksheet("E-commerce")
-            sheet_ecom.append_row([name, email, phone, item_name,item_type, brand, item_description, item_price, item_image_url])
+            sheet_ecom.append_row([name, email, phone, brand, item_name, item_description, item_price, item_image_url])
             st.success("Submitted successfully")
