@@ -7,8 +7,9 @@ import json
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+import tempfile
 
-def upload_to_drive(file, credentials_json):
+ef upload_to_drive(file, credentials_json):
     # Save the uploaded file to a temporary location
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(file.getbuffer())
@@ -218,10 +219,10 @@ elif choice == "Sell my stuffs please":
 
         if submit:
 
-            # Upload image to Google Drive and get the shareable link
+           # Upload image to Google Drive and get the shareable link
             item_image_url = upload_to_drive(item_image, service_account_info) if item_image else "No Image"
             
             # Append the data to the Google Sheet
             sheet_ecom = sheet.worksheet("E-commerce")
-            sheet_ecom.append_row([name, email, phone, brand, item_name, item_description, item_price, item_image_url])
+            sheet_ecom.append_row([name, email, phone, item_name, brand, item_type, item_description, item_price, item_image_url])
             st.success("Submitted successfully")
