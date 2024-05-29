@@ -151,8 +151,8 @@ elif choice == "Decoration":
         )
         st.write("""
         Note: 
-        1. If you choose "I want TokTok to buy my furniture", you will be charged with 10 dollars per furniture 
-        2. If you choose "I want TokTok to buy and set up my furniture", you will be charged with additional 10 dollars per furniture installation on top of the purchase charge
+        1. If you choose "I want TokTok to buy my furniture," you will be charged $10 per piece of furniture.
+        2. If you choose "I want TokTok to buy and set up my furniture," you will be charged an additional $10 per piece of furniture for installation, on top of the purchase charge.
         """)
         submit = st.form_submit_button("Submit")
 
