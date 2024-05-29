@@ -1,18 +1,31 @@
 import streamlit as st
 import gspread
 from google.oauth2 import service_account
-import os
+from google.oauth2.service_account import Credentials
+import toml
+import json
 
-# Load the credentials from st.secrets
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
-)
+# Check if running locally by trying to import toml and reading the local secrets file
+try:
+    secrets = toml.load("newyorkah/myenv/secrets.toml")
+except FileNotFoundError:
+    secrets = st.secrets
 
-# Initialize the Google Sheets client
-client = gspread.authorize(credentials)
+# Load the service account info from Streamlit secrets
+key_file_path = secrets["gcp_service_account"]["path"]
+
+with open(key_file_path) as source:
+    service_account_info = json.load(source)
+
+# Define the required scopes
+scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+
+# Use the credentials to authenticate with Google Sheets
+creds = Credentials.from_service_account_info(service_account_info, scopes=scopes)
+client = gspread.authorize(creds)
 
 # Open the Google Sheet
-sheet_id = st.secrets["gcp_sheet_id"] ["api_key"]
+sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
