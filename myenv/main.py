@@ -4,6 +4,11 @@ from google.oauth2 import service_account
 from google.oauth2.service_account import Credentials
 import toml
 import json
+import google-api-python-client 
+import google-auth 
+import google-auth-httplib2 
+import google-auth-oauthlib
+
 
 # Check if running locally by trying to import toml and reading the local secrets file
 try:
@@ -159,4 +164,24 @@ elif choice == "Decoration":
         if submit:
             sheet_dec = sheet.worksheet("Decoration")
             sheet_dec.append_row([name, email, pinterest_link, decor_preference])
+            st.success("Submitted successfully")
+
+elif choice == "E-commerce":
+    st.subheader("Submit Items for Sale")
+    with st.form("ecommerce_form"):
+        name = st.text_input("Name")
+        email = st.text_input("Email")
+        phone = st.text_input("Phone Number")
+        brand = st.text_input("Brand Name")
+        item_name = st.text_input("Item Name")
+        item_description = st.text_area("Item Description")
+        item_price = st.text_input("Item Price")
+        item_image = st.file_uploader("Upload Item Image", type=["jpg", "jpeg", "png"])
+        submit = st.form_submit_button("Submit")
+
+        if submit:
+            sheet_ecom = sheet.worksheet("E-commerce")
+            # Convert the uploaded image to a URL and store the link (for simplicity, using a placeholder here)
+            item_image_url = f"https://drive.google.com/uc?export=view&id={item_image.name}" if item_image else "No Image"
+            sheet_ecom.append_row([name, email, phone, brand, item_name, item_description, item_price, item_image_url])
             st.success("Submitted successfully")
