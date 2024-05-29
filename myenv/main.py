@@ -108,7 +108,7 @@ if choice == "Home":
     
     +1-332-251-1844 - Sausan Huwel
     
-    +62 811-9504-155 - Aistyara Charmita
+    +62 811-9504-155 - Aistyara
     """)
 elif choice == "Apartment Checking":
     st.subheader("Submit Apartment Details")
