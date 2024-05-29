@@ -106,6 +106,7 @@ if choice == "Home":
 
     PIC: 
     +1-332-251-1844 - Sausan Huwel
+    
     +62 811-9504-155 - Aistyara Charmita
     """)
 elif choice == "Apartment Checking":
