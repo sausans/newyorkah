@@ -4,10 +4,34 @@ from google.oauth2 import service_account
 from google.oauth2.service_account import Credentials
 import toml
 import json
-import google-api-python-client 
-import google-auth 
-import google-auth-httplib2 
-import google-auth-oauthlib
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+
+def upload_to_drive(file, credentials_json):
+    # Load the credentials
+    credentials = Credentials.from_service_account_info(credentials_json, scopes=["https://www.googleapis.com/auth/drive.file"])
+    
+    # Build the Drive service
+    drive_service = build('drive', 'v3', credentials=credentials)
+    
+    # Define file metadata
+    file_metadata = {
+        'name': file.name,
+        'parents': ['1UAL3zc1qSqlaUdmzHDlUM-Q2WD6Z9yzw']  # Replace 'your_folder_id' with the ID of the folder where you want to upload the file
+    }
+    
+    # Create the media file upload
+    media = MediaFileUpload(file, resumable=True)
+    
+    # Upload the file
+    uploaded_file = drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+    
+    # Get the file ID and generate a shareable link
+    file_id = uploaded_file.get('id')
+    shareable_link = f"https://drive.google.com/uc?export=view&id={file_id}"
+    
+    return shareable_link
 
 
 # Check if running locally by trying to import toml and reading the local secrets file
@@ -180,8 +204,13 @@ elif choice == "E-commerce":
         submit = st.form_submit_button("Submit")
 
         if submit:
+            # Load the service account info from Streamlit secrets
+            service_account_info = json.loads(key_file_path)
+
+            # Upload image to Google Drive and get the shareable link
+            item_image_url = upload_to_drive(item_image, service_account_info) if item_image else "No Image"
+            
+            # Append the data to the Google Sheet
             sheet_ecom = sheet.worksheet("E-commerce")
-            # Convert the uploaded image to a URL and store the link (for simplicity, using a placeholder here)
-            item_image_url = f"https://drive.google.com/uc?export=view&id={item_image.name}" if item_image else "No Image"
             sheet_ecom.append_row([name, email, phone, brand, item_name, item_description, item_price, item_image_url])
             st.success("Submitted successfully")
