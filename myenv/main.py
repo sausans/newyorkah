@@ -65,7 +65,7 @@ client = gspread.authorize(creds)
 sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
-faviconPath = "../myenv/icon.webp"
+faviconPath = "../myenv/icon.png"
 
 # Setting Page Title, Page Icon and Layout Size
 st.set_page_config(
