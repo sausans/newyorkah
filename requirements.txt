@@ -2,3 +2,7 @@ streamlit
 gspread
 oauth2client
 git-filter-repo
+google-api-python-client 
+google-auth 
+google-auth-httplib2 
+google-auth-oauthlib
