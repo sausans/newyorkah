@@ -62,10 +62,12 @@ client = gspread.authorize(creds)
 sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
+im = Image.open("favicon.ico")
 # Set the page configuration
 st.set_page_config(
     page_title="TokTok: Apartment Services",
-    page_icon="chart_with_upwards_trend",  # Assuming your favicon is in the same directory
+    page_icon=im,
+    layout="wide",  # Assuming your favicon is in the same directory
 )
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
