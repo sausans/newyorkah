@@ -138,6 +138,8 @@ elif choice == "Decoration":
         name = st.text_input("Name")
         email = st.text_input("Email")
         number = st.text_input("WhatsApp Number")
+        apt_address = st.text_input("Your Apartment Address")
+        apt_pic = st.text_input("Link to Latest Pictures of Your Current Apartment")
         pinterest_link = st.text_input("Pinterest Board Link")
         decor_preference = st.radio(
             "How do you want to handle the furnitures?",
