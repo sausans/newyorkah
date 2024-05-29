@@ -67,6 +67,31 @@ sheet = client.open_by_key(sheet_id)
 
 faviconPath = "../myenv/favicon.ico"
 
+# Function to inject HTML into the Streamlit app
+def inject_html(html):
+    st.markdown(html, unsafe_allow_html=True)
+
+# Read the HTML template
+html_template = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="TokTok: Apartment Services">
+    <meta property="og:description" content="Helping international students with apartment checks, roommate matching, and decoration.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sausans/newyorkah/main/myenv/image.png">
+    <meta property="og:url" content="https://toktok-to-my-apt.streamlit.app">
+    <title>TokTok: Apartment Services</title>
+</head>
+<body>
+</body>
+</html>
+"""
+
+# Inject the HTML template
+inject_html(html_template)
+
 # Setting Page Title, Page Icon and Layout Size
 st.set_page_config(
     page_title='TokTok: Apartment Services',
