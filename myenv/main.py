@@ -8,6 +8,7 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 import tempfile
+from PIL import Image
 
 def upload_to_drive(file, credentials_json):
     # Save the uploaded file to a temporary location
