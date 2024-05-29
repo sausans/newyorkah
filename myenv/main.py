@@ -10,6 +10,7 @@ from googleapiclient.http import MediaFileUpload
 import tempfile
 from PIL import Image
 import base64
+import requests
 
 def upload_to_drive(file, credentials_json):
     # Save the uploaded file to a temporary location
