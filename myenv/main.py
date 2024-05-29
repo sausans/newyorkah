@@ -105,6 +105,7 @@ if choice == "Home":
     We hope this platform helps make your transition to a new home smoother and more enjoyable!
 
     PIC: 
+    
     +1-332-251-1844 - Sausan Huwel
     
     +62 811-9504-155 - Aistyara Charmita
