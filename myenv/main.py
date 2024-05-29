@@ -65,10 +65,11 @@ sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
 #im = Image.open("favicon.ico")
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode('utf-8')
-
+def get_base64_image_from_url(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    return base64.b64encode(response.content).decode('utf-8')
+    
 # Path to your local avatar image
 image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myvenv/favicon.ico" 
 avatar_base64 = get_base64_image_from_url(image_url)
