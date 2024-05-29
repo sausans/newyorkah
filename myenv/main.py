@@ -9,6 +9,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 import tempfile
 from PIL import Image
+import base64
 
 def upload_to_drive(file, credentials_json):
     # Save the uploaded file to a temporary location
@@ -64,11 +65,20 @@ sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
 #im = Image.open("favicon.ico")
-im = "myenv/icon.webp"
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode('utf-8')
+
+# Path to your local avatar image
+image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myvenv/favicon.ico" 
+avatar_base64 = get_base64_image_from_url(image_url)
+avatar_url = f"data:image/x-icon;base64,{favicon_base64}"
+
+#im = "myenv/icon.webp"
 # Set the page configuration
 st.set_page_config(
     page_title="TokTok: Apartment Services",
-    page_icon=im,
+    page_icon=avatar_url,
     layout="wide",  # Assuming your favicon is in the same directory
 )
 
