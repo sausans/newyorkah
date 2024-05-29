@@ -65,7 +65,7 @@ sheet = client.open_by_key(sheet_id)
 # Set the page configuration
 st.set_page_config(
     page_title="TokTok: Apartment Services",
-    page_icon="myenv/favicon.ico",  # Assuming your favicon is in the same directory
+    page_icon="chart_with_upwards_trend",  # Assuming your favicon is in the same directory
 )
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
