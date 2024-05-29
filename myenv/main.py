@@ -72,7 +72,7 @@ def get_base64_image_from_url(url):
     return base64.b64encode(response.content).decode('utf-8')
     
 # Path to your local avatar image
-image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myvenv/favicon.ico" 
+image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myenv/favicon.ico" 
 avatar_base64 = get_base64_image_from_url(image_url)
 avatar_url = f"data:image/x-icon;base64,{favicon_base64}"
 
