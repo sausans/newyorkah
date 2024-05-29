@@ -63,7 +63,8 @@ client = gspread.authorize(creds)
 sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
-im = Image.open("favicon.ico")
+#im = Image.open("favicon.ico")
+im = "myenv/icon.webp"
 # Set the page configuration
 st.set_page_config(
     page_title="TokTok: Apartment Services",
