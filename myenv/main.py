@@ -192,7 +192,7 @@ elif choice == "Decoration":
 
 elif choice == "Sell my stuffs please":
     st.subheader("Submit Items for Sale")
-     st.write("""
+    st.write("""
     Do you want to sell your furniture or clothes? Fill out this form and we will help to promote your stuffs to other people!
     However, we do need your commission / tip ;) Of course it is pay as you wish!
     
