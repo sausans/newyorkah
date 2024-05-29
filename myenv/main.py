@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 import tempfile
 
-ef upload_to_drive(file, credentials_json):
+def upload_to_drive(file, credentials_json):
     # Save the uploaded file to a temporary location
     with tempfile.NamedTemporaryFile(delete=False) as temp_file:
         temp_file.write(file.getbuffer())
