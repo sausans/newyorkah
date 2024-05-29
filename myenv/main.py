@@ -1,8 +1,10 @@
 import streamlit as st
 import gspread
+from google.oauth2 import service_account
 from google.oauth2.service_account import Credentials
 import toml
 import json
+from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
@@ -16,7 +18,7 @@ def upload_to_drive(file, credentials_json):
     # Define file metadata
     file_metadata = {
         'name': file.name,
-        'parents': ['1UAL3zc1qSqlaUdmzHDlUM-Q2WD6Z9yzw']  # Your Google Drive folder ID
+        'parents': ['1UAL3zc1qSqlaUdmzHDlUM-Q2WD6Z9yzw']  # Replace 'your_folder_id' with the ID of the folder where you want to upload the file
     }
     
     # Create the media file upload
@@ -31,6 +33,7 @@ def upload_to_drive(file, credentials_json):
     
     return shareable_link
 
+
 # Check if running locally by trying to import toml and reading the local secrets file
 try:
     secrets = toml.load("newyorkah/myenv/secrets.toml")
@@ -38,7 +41,10 @@ except FileNotFoundError:
     secrets = st.secrets
 
 # Load the service account info from Streamlit secrets
-service_account_info = json.loads(secrets["gcp_service_account"]["path"])
+key_file_path = secrets["gcp_service_account"]["path"]
+
+with open(key_file_path) as source:
+    service_account_info = json.load(source)
 
 # Define the required scopes
 scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
@@ -53,7 +59,7 @@ sheet = client.open_by_key(sheet_id)
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
 
-menu = ["Home", "Apartment Checking", "Roommate Matching", "Decoration", "E-commerce"]
+menu = ["Home", "Apartment Checking", "Roommate Matching", "Decoration", "Sell my stuffs please"]
 choice = st.sidebar.selectbox("Click dropdown for our services", menu)
 
 if choice == "Home":
@@ -184,27 +190,34 @@ elif choice == "Decoration":
             sheet_dec.append_row([name, email, pinterest_link, decor_preference])
             st.success("Submitted successfully")
 
-elif choice == "E-commerce":
+elif choice == "Sell my stuffs please":
     st.subheader("Submit Items for Sale")
+    st.write("""
+    Do you want to sell your furniture or clothes? Fill out this form and we will help to promote your stuffs to other people!
+    However, we do need your commission / tip ;) Of course it is pay as you wish!
+    
+    """)
     with st.form("ecommerce_form"):
         name = st.text_input("Name")
         email = st.text_input("Email")
         phone = st.text_input("Phone Number")
-        brand = st.text_input("Brand Name")
         item_name = st.text_input("Item Name")
+        item_type = st.radio(
+            "Item Type",
+            ("Furniture", "Fashion")
+        )
+        brand = st.text_input("Brand Name")
         item_description = st.text_area("Item Description")
         item_price = st.text_input("Item Price")
         item_image = st.file_uploader("Upload Item Image", type=["jpg", "jpeg", "png"])
         submit = st.form_submit_button("Submit")
 
         if submit:
-            # Load the service account info from Streamlit secrets
-            service_account_info = json.loads(st.secrets["gcp_service_account"]["key_file"])
 
             # Upload image to Google Drive and get the shareable link
             item_image_url = upload_to_drive(item_image, service_account_info) if item_image else "No Image"
             
             # Append the data to the Google Sheet
             sheet_ecom = sheet.worksheet("E-commerce")
-            sheet_ecom.append_row([name, email, phone, brand, item_name, item_description, item_price, item_image_url])
+            sheet_ecom.append_row([name, email, phone, item_name,item_type, brand, item_description, item_price, item_image_url])
             st.success("Submitted successfully")
