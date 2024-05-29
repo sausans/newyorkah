@@ -24,7 +24,7 @@ def upload_to_drive(file, credentials_json):
     # Define file metadata
     file_metadata = {
         'name': file.name,
-        'parents': ['1UAL3zc1qSqlaUdmzHDlUM-Q2WD6Z9yzw']  # Your Google Drive folder ID
+        'parents': ['1oV1rN9Y8WZWLB4c3xBZKLNRK2FIm0J7h']  # Your Google Drive folder ID
     }
     
     # Create the media file upload
