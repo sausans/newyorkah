@@ -1,15 +1,18 @@
 import streamlit as st
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2 import service_account
 import os
 
-# Google Sheets setup
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("newyorkah/myenv/toktok-424721-72c43ebbe7bd.json", scope)
-client = gspread.authorize(creds)
+# Load the credentials from st.secrets
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+
+# Initialize the Google Sheets client
+client = gspread.authorize(credentials)
 
 # Open the Google Sheet
-sheet_id = "1BlMHQWPJnEgEWtwfNhi7Kuv-khzz4BA3y--DoKFgddk"
+sheet_id = st.secrets["gcp_sheet_id"] ["api_key"]
 sheet = client.open_by_key(sheet_id)
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
