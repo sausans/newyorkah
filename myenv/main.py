@@ -65,7 +65,7 @@ client = gspread.authorize(creds)
 sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
-faviconPath = "../myenv/icon.png"
+faviconPath = "../myenv/favicon.ico"
 
 # Setting Page Title, Page Icon and Layout Size
 st.set_page_config(
@@ -106,6 +106,7 @@ if choice == "Home":
 
     PIC: 
     +1-332-251-1844 - Sausan Huwel
+    +62 811-9504-155 - Aistyara Charmita
     """)
 elif choice == "Apartment Checking":
     st.subheader("Submit Apartment Details")
