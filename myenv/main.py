@@ -53,7 +53,7 @@ if choice == "Home":
    
     2. **Roommate Matching:** 10 dollars per 1 roommate candidate
     
-    3. **Apartment Decoration:** 25 dollars per 1 room
+    3. **Apartment Decoration:** 30 dollars per 1 room
 
     We hope this platform helps make your transition to a new home smoother and more enjoyable!
 
@@ -139,12 +139,21 @@ elif choice == "Decoration":
         email = st.text_input("Email")
         number = st.text_input("WhatsApp Number")
         apt_address = st.text_input("Your Apartment Address")
-        apt_pic = st.text_input("Link to Latest Pictures of Your Current Apartment")
-        pinterest_link = st.text_input("Pinterest Board Link")
+        apt_pic = st.text_input("Link to Latest Pictures & Floor Plan of Your Apartment")
+        apt_size = st.text_input("Your Apartment Size")
+        decor_aesthetic = st.radio(
+            "What is your decoration aesthetic?",
+            ("Minimalist-Japandi", "Industrial", "Cabin in the Wood Style", " Girlie Cute", "Masculine")
+        )
         decor_preference = st.radio(
             "How do you want to handle the furnitures?",
-            ("I want to buy new furniture myself", "I want to buy secondhand furniture myself", "I want TokTok to buy new furniture", "I want TokTok to buy secondhand furniture")
+            ("I want to buy the furniture myself (we will only give you the furniture images & purchase link)", "I want TokTok to buy my furniture", "I want TokTok to buy and set up my furniture")
         )
+        st.write("""
+        Note: 
+        1. If you choose "I want TokTok to buy my furniture", you will be charged with 10 dollars per furniture 
+        2. If you choose "I want TokTok to buy and set up my furniture", you will be charged with additional 10 dollars per furniture installation on top of the purchase charge
+        """)
         submit = st.form_submit_button("Submit")
 
         if submit:
