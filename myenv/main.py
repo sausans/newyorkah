@@ -38,7 +38,7 @@ except FileNotFoundError:
     secrets = st.secrets
 
 # Load the service account info from Streamlit secrets
-service_account_info = json.loads(secrets["gcp_service_account"]["key_file"])
+service_account_info = json.loads(secrets["gcp_service_account"]["path"])
 
 # Define the required scopes
 scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
