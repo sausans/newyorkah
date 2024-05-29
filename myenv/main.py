@@ -73,15 +73,14 @@ def get_base64_image_from_url(url):
     
 # Path to your local avatar image
 image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myenv/favicon.ico" 
-avatar_base64 = get_base64_image_from_url(image_url)
-avatar_url = f"data:image/x-icon;base64,{favicon_base64}"
+#avatar_base64 = get_base64_image_from_url(image_url)
+#avatar_url = f"data:image/x-icon;base64,{favicon_base64}"
 
-#im = "myenv/icon.webp"
 # Set the page configuration
 st.set_page_config(
     page_title="TokTok: Apartment Services",
-    page_icon=avatar_url,
-    layout="wide",  # Assuming your favicon is in the same directory
+    page_icon=image_url,
+    layout="wide",
 )
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
