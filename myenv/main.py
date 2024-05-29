@@ -70,7 +70,7 @@ faviconPath = "../myenv/favicon.ico"
 # Setting Page Title, Page Icon and Layout Size
 st.set_page_config(
     page_title='TokTok: Apartment Services',
-    page_icon=faviconPath,
+    page_icon="🍦",
     layout='wide',
     initial_sidebar_state="expanded"
 )
