@@ -65,23 +65,34 @@ client = gspread.authorize(creds)
 sheet_id = secrets["gcp_sheet_id"]["api_key"]
 sheet = client.open_by_key(sheet_id)
 
-#im = Image.open("favicon.ico")
-def get_base64_image_from_url(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    return base64.b64encode(response.content).decode('utf-8')
-    
-# Path to your local avatar image
-image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myenv/favicon.ico" 
-#avatar_base64 = get_base64_image_from_url(image_url)
-#avatar_url = f"data:image/x-icon;base64,{favicon_base64}"
+def get_base64_image_from_url(image_url):
+    try:
+        response = requests.get(image_url)
+        response.raise_for_status()
+        return base64.b64encode(response.content).decode('utf-8')
+    except Exception as e:
+        st.error(f"Error fetching image from URL: {e}")
+        return None
 
-# Set the page configuration
-st.set_page_config(
-    page_title="TokTok: Apartment Services",
-    page_icon=image_url,
-    layout="wide",
-)
+# URL to your favicon image
+image_url = "https://raw.githubusercontent.com/sausans/newyorkah/main/myenv/favicon.ico"
+favicon_base64 = get_base64_image_from_url(image_url)
+
+if favicon_base64:
+    favicon_url = f"data:image/x-icon;base64,{favicon_base64}"
+
+    # Set the page configuration
+    st.set_page_config(
+        page_title="TokTok: Apartment Services",
+        page_icon=favicon_url,
+        layout="wide",
+    )
+
+    st.title("TokTok: Cause finding apartments in US is a painful experience")
+
+    # The rest of your Streamlit app code...
+else:
+    st.error("Failed to set the favicon due to an encoding issue.")
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
 
