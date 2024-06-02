@@ -103,10 +103,10 @@ faviconPath = "../myenv/favicon.ico"
 
 st.title("TokTok: Cause finding apartments in US is a painful experience")
 
-menu = ["Home", "Apartment Checking", "Roommate Matching", "Decoration", "Sell my stuffs please"]
-choice = st.sidebar.selectbox("Click dropdown for our services", menu)
+#menu = ["Home", "Apartment Checking", "Roommate Matching", "Decoration", "Sell my stuffs please"]
+#choice = st.sidebar.selectbox("Click dropdown for our services", menu)
 
-if choice == "Home":
+def home_page():
     st.subheader("Welcome to the International Student Apartment Helper")
     st.write("""
     **Our Purpose:**
@@ -136,7 +136,8 @@ if choice == "Home":
     
     +62 811-9504-155 - Aistyara
     """)
-elif choice == "Apartment Checking":
+    
+def apt_checking_page():
     st.subheader("Submit Apartment Details")
     with st.form("apartment_form"):
         name = st.text_input("Name")
@@ -152,8 +153,8 @@ elif choice == "Apartment Checking":
             sheet_apt = sheet.worksheet("Apartment Checking")
             sheet_apt.append_row([name, email, number, apt_location, apt_agent_number, apt_link, questions])
             st.success("Submitted successfully")
-
-elif choice == "Roommate Matching":
+            
+def roommate_matching_page(): 
     st.subheader("Submit Roommate Preferences")
     with st.form("roommate_form"):
         name = st.text_input("Name")
@@ -208,7 +209,7 @@ elif choice == "Roommate Matching":
             sheet_rm.append_row([name, email, number, lifestyle, cooking, guest, other_people, cleanliness, dietary, shared_utensils, relationship, preferences])
             st.success("Submitted successfully")
 
-elif choice == "Decoration":
+def decoration_page():
     st.subheader("Submit Pinterest Board")
     with st.form("decoration_form"):
         name = st.text_input("Name")
@@ -236,8 +237,8 @@ elif choice == "Decoration":
             sheet_dec = sheet.worksheet("Decoration")
             sheet_dec.append_row([name, email, pinterest_link, decor_preference])
             st.success("Submitted successfully")
-
-elif choice == "Sell my stuffs please":
+            
+def sell_stuffs_page(): 
     st.subheader("Submit Items for Sale")
     st.write("""
     Do you want to sell your furniture or clothes? Fill out this form and we will help to promote your stuffs to other people!
@@ -268,3 +269,19 @@ elif choice == "Sell my stuffs please":
             sheet_ecom = sheet.worksheet("E-commerce")
             sheet_ecom.append_row([name, email, phone, item_name, brand, item_type, item_description, item_price, item_image_url])
             st.success("Submitted successfully")
+            
+# Navigation
+pages = {
+    "Home": home_page,
+    "Apartment Checking": apt_checking_page,
+    "Roommate Matching": roommate_matching_page,
+    "Decoration": decoration_page,
+    "Sell my stuffs":  sell_stuffs_page
+}
+
+st.sidebar.title("Navigation")
+selection = st.sidebar.radio("Go to", list(pages.keys()))
+
+# Display the selected page
+page = pages[selection]
+page()
