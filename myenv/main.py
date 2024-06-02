@@ -279,7 +279,7 @@ pages = {
     "Sell my stuffs":  sell_stuffs_page
 }
 
-st.sidebar.title("Navigation")
+st.sidebar.title("Our Services")
 selection = st.sidebar.radio("Go to", list(pages.keys()))
 
 # Display the selected page
