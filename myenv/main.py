@@ -121,13 +121,6 @@ def home_page():
     
     3. **Apartment Decoration:** You are about to spend good amount of hours in your room, wandering why you are doing this to yourself so make sure that you will do it in aesthetic condition- at least. Share your Pinterest board with us, and we will provide personalized decoration suggestions and help to decorate! And Hey, we might find  cheapeer stuffs for your room ;) 
 
-    **Pricing**
-    1. **Apartment Checking:** 15-20 dollars per 1 apartment view depending on distance
-   
-    2. **Roommate Matching:** 10 dollars per 1 roommate candidate
-    
-    3. **Apartment Decoration:** 30 dollars per 1 room
-
     We hope this platform helps make your transition to a new home smoother and more enjoyable!
 
     PIC: 
